@@ -17,11 +17,12 @@ public class GamePanel extends JPanel {
     public GamePanel(){
         createBackGround();
         this.setLayout(null);
+        this.isUp = false;
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
         this.requestFocus(true);
         this.addKeyListener(new KeyBoard(this));
-        this.cannon = new Cannon(410,740,100,100);
+        this.cannon = new Cannon(410,Constants.CANNON_Y_POSITION,100,100);
         this.ball = new Ball();
         this.shot= new Shot(this.cannon);
         this.isOver = false;
@@ -52,9 +53,28 @@ public class GamePanel extends JPanel {
     public void update(){
         this.cannon.update();
         this.ball.update();
-        this.shot.update();
+        this.shots.get(this.index).update();
+        updateIndex();
         checkCollision();
         updateScore();
+
+    }
+
+    private void updateIndex() {
+        if (isShooting){
+            if (this.index<29){
+                if (this.shots.get(this.index).y==0){
+                    this.index++;
+                    isShooting= false;
+                }
+            }else if(this.index==29) {
+                this.index  = 0;
+                for (Shot shot: this.shots) {
+                    shot.setShot();
+                }
+            }
+
+        }
 
     }
 
@@ -63,16 +83,16 @@ public class GamePanel extends JPanel {
     }
 
     public Shot getShot() {
-        return this.shot;
+        return this.shots.get(this.index);
     }
 
     private void checkCollision(){
         if (this.ball.entityRectangle!=null){
-                if (this.shot.entityRectangle!=null){
-             if (Utils.collision(this.ball.entityRectangle,this.shot.entityRectangle)){
-                hit();
-               }
-              }
+            if (this.shots.get(this.index).entityRectangle!=null){
+                if (Utils.collision(this.ball.entityRectangle,this.shots.get(this.index).entityRectangle)){
+                    hit();
+                }
+            }
             if (this.cannon.entityRectangle!=null){
                 if (Utils.collision(this.ball.entityRectangle,this.cannon.entityRectangle)){
                     this.isOver=true;
@@ -92,7 +112,7 @@ public class GamePanel extends JPanel {
         return gameOver;
     }
     private void hit(){
-        this.shot.destroy();
+        this.shots.get(index).destroy();
         this.ball.destroy();
         System.out.println(true);
     }
@@ -103,7 +123,10 @@ public class GamePanel extends JPanel {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.drawImage(this.backGround,0,0,Constants.WIDTH,Constants.HEIGHT,null);
-        this.shot.draw(graphics2D);
+//        for (Shot shot: this.shots) {
+//            shot.draw(graphics2D);
+//        }
+        this.shots.get(this.index).draw(graphics2D);
         this.cannon.draw(graphics2D);
         this.ball.draw(graphics2D);
     }

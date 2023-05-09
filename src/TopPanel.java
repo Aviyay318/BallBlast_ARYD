@@ -42,6 +42,7 @@ private void readScore(){
     public void writeScore(){
 
         if (this.score<Ball.getScore()){
+            System.out.println(this.score+"hhhhhhhhhhhh0" + Ball.getScore(  ));
             try {
                 FileWriter fileWriter = new FileWriter(this.file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

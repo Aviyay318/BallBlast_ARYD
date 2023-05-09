@@ -4,7 +4,6 @@ public class Shot extends Entity{
 
     private Cannon cannon;
     private boolean isShooting;
-
     public Shot(Cannon cannon){
         super(cannon.x+40,cannon.y+10,Constants.SHOT_WIDTH,Constants.SHOT_HEIGHT);
         this.cannon = cannon;

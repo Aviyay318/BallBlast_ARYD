@@ -15,4 +15,5 @@ public class Constants {
     public static final int INSTRUCTION_WIDTH = 600;
     public static final int INSTRUCTION_HEIGHT = 800;
     public static final String SCORE_PATH = "data/score.txt";
+    public static final int CANNON_Y_POSITION= 740;
 }

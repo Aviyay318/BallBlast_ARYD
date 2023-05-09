@@ -17,7 +17,7 @@ public class KeyBoard implements KeyListener {
         switch (e.getKeyCode()){
             case KeyEvent.VK_LEFT -> {this.gamePanel.getCannon().setLeft(true);}
             case KeyEvent.VK_RIGHT -> {this.gamePanel.getCannon().setRight(true);}
-            case KeyEvent.VK_SPACE -> {this.gamePanel.getShot().setShooting(true);}
+            case KeyEvent.VK_SPACE -> {this.gamePanel.getShot().setShooting(true);this.gamePanel.setShooting(true);}
         }
     }
 
@@ -26,7 +26,7 @@ public class KeyBoard implements KeyListener {
         switch (e.getKeyCode()){
             case KeyEvent.VK_LEFT -> {this.gamePanel.getCannon().setLeft(false);}
             case KeyEvent.VK_RIGHT -> {this.gamePanel.getCannon().setRight(false);}
-           // case KeyEvent.VK_SPACE -> {this.gamePanel.getShot().setShooting(false);}
+           // case KeyEvent.VK_SPACE -> {this.gamePanel.setShooting(false);}
         }
     }
 }
