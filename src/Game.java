@@ -3,6 +3,7 @@ public class Game implements Runnable{
     private final int FPS_SEC = 120;
     private final int UPS_SEC = 200;
     private Thread gameThread;
+    private  TopPanel topPanel;
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE =2f;
     public static final int TILES_IN_WIDTH = 26;
@@ -13,8 +14,8 @@ public class Game implements Runnable{
 
     public Game(){
        this.gamePanel = new GamePanel();
-       TopPanel topPanel = new TopPanel(Constants.WIDTH,Constants.HEIGHT/18);
-       new Frame(topPanel ,gamePanel);
+       this.topPanel = new TopPanel(Constants.WIDTH,Constants.HEIGHT/18);
+       new Frame(this.topPanel ,gamePanel);
         startGameLoop();
     }
 
@@ -23,6 +24,7 @@ public class Game implements Runnable{
 
     private void update() {
       this.gamePanel.update();
+
     }
 
 

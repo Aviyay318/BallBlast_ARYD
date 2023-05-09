@@ -13,7 +13,7 @@ public class GamePanel extends JPanel {
     private Ball ball;
     private Shot shot;
     private boolean isOver;
-
+    private  JLabel showScore;
     public GamePanel(){
         createBackGround();
         this.setLayout(null);
@@ -25,10 +25,17 @@ public class GamePanel extends JPanel {
         this.ball = new Ball();
         this.shot= new Shot(this.cannon);
         this.isOver = false;
+        this.showScore = new JLabel(Integer.toString(0),JLabel.CENTER);
+        this.showScore.setFont(new Font("arial",Font.BOLD,50));
+        this.showScore.setForeground(Color.white);
+        this.showScore.setBounds(Constants.WIDTH/3+30,0,200,100);
+        this.add(this.showScore);
 
     }
 
-
+    public Ball getBall() {
+        return ball;
+    }
 
     private void createBackGround() {
         try {
@@ -47,8 +54,12 @@ public class GamePanel extends JPanel {
         this.ball.update();
         this.shot.update();
         checkCollision();
+        updateScore();
 
+    }
 
+    private void updateScore() {
+        this.showScore.setText(Integer.toString(Ball.getScore()));
     }
 
     public Shot getShot() {

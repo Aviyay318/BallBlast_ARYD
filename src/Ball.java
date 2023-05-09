@@ -7,6 +7,7 @@ public class Ball extends Entity{
     private boolean shouldGoRight;
     private  Random random ;
     private int health;
+    private static int score;
     public Ball(){
        this.random = new Random();
        setImage(Constants.BALL_PATH);
@@ -15,6 +16,7 @@ public class Ball extends Entity{
       this.xSpeed = 1;
         this.entityRectangle.setBounds(this.x,this.y,this.width,this.height);
         this.health = random.nextInt(30);
+        score=0;
     }
 
     private void createBall() {
@@ -97,8 +99,14 @@ public class Ball extends Entity{
             this.width=0;
         }else {
             this.health--;
+            score++;
         }
     }
+
+    public static int getScore() {
+        return score;
+    }
+
     public void draw(Graphics2D graphics2D){
         super.draw(graphics2D);
         graphics2D.setFont(new Font("arial",0,this.width/2));
