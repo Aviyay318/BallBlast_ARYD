@@ -30,6 +30,7 @@ public class Cannon extends Entity{
             }
         }
     }
+
     public void destroy(){
         JLabel dialogMassage = new JLabel();
         JOptionPane.showMessageDialog(dialogMassage,"you lost bitch");

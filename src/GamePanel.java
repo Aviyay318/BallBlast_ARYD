@@ -5,35 +5,35 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GamePanel extends JPanel {
     private BufferedImage backGround;
     private Cannon cannon;
-    private Ball ball;
     private Shot shot;
     private boolean isOver;
     private  JLabel showScore;
     private ArrayList<Shot> shots;
-    private int index;
+    private ArrayList<Ball> balls;
+    private int shotIndex;
+    private int ballIndex;
     private static boolean isShooting;
-    private boolean isUp;
+
 
     public GamePanel(){
         createBackGround();
         this.setLayout(null);
-        this.isUp = false;
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
         this.requestFocus(true);
         this.addKeyListener(new KeyBoard(this));
         this.cannon = new Cannon(410,Constants.CANNON_Y_POSITION,100,100);
-        this.ball = new Ball();
         isShooting = false;
         this.shots = new ArrayList<>();
-        this.shot  = new Shot(this.cannon);
+        this.balls = new ArrayList<>();
         createShots();
-        this.index = 0;
+        createBalls();
+        this.shotIndex = 0;
+        this.ballIndex = 0;
         this.isOver = false;
         this.showScore = new JLabel(Integer.toString(0),JLabel.CENTER);
         this.showScore.setFont(new Font("arial",Font.BOLD,50));
@@ -41,6 +41,12 @@ public class GamePanel extends JPanel {
         this.showScore.setBounds(Constants.WIDTH/3+30,0,200,100);
         this.add(this.showScore);
 
+    }
+
+    private void createBalls() {
+        for(int i = 0; i<5; i++){
+            this.balls.add(new Ball());
+        }
     }
 
     private void createShots() {
@@ -51,7 +57,7 @@ public class GamePanel extends JPanel {
 
 
     public Ball getBall() {
-        return ball;
+        return balls.get(this.ballIndex);
     }
 
     private void createBackGround() {
@@ -80,23 +86,38 @@ public class GamePanel extends JPanel {
     }
     public void update(){
         this.cannon.update();
-        this.ball.update();
-        this.shots.get(this.index).update();
-        updateIndex();
+        this.balls.get(this.ballIndex).update();
+        this.shots.get(this.shotIndex).update();
+        updateShotIndex();
+        updateBallIndex();
         checkCollision();
         updateScore();
 
     }
 
-    private void updateIndex() {
+    private void updateBallIndex() {
+        if (this.ballIndex<5){
+            if (this.balls.get(this.ballIndex).getHealth()==0){
+                this.ballIndex++;
+            }
+        }else if (this.ballIndex==5){
+            this.ballIndex=0;
+//            for (Ball ball: this.balls) {
+//                ball.setBall();
+//            }
+        }
+
+    }
+
+    private void updateShotIndex() {
         if (isShooting){
-            if (this.index<29){
-                if (this.shots.get(this.index).y==0){
-                    this.index++;
+            if (this.shotIndex <29){
+                if (this.shots.get(this.shotIndex).y==0){
+                    this.shotIndex++;
                     isShooting= false;
                 }
-            }else if(this.index==29) {
-                this.index  = 0;
+            }else if(this.shotIndex ==29) {
+                this.shotIndex = 0;
                 for (Shot shot: this.shots) {
                     shot.setShot();
                 }
@@ -111,18 +132,18 @@ public class GamePanel extends JPanel {
     }
 
     public Shot getShot() {
-        return this.shots.get(this.index);
+        return this.shots.get(this.shotIndex);
     }
 
     private void checkCollision(){
-        if (this.ball.entityRectangle!=null){
-            if (this.shots.get(this.index).entityRectangle!=null){
-                if (Utils.collision(this.ball.entityRectangle,this.shots.get(this.index).entityRectangle)){
+        if (this.balls.get(this.ballIndex).entityRectangle!=null){
+            if (this.shots.get(this.shotIndex).entityRectangle!=null){
+                if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle,this.shots.get(this.shotIndex).entityRectangle)){
                     hit();
                 }
             }
             if (this.cannon.entityRectangle!=null){
-                if (Utils.collision(this.ball.entityRectangle,this.cannon.entityRectangle)){
+                if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle,this.cannon.entityRectangle)){
                     this.isOver=true;
                 }
             }
@@ -134,14 +155,14 @@ public class GamePanel extends JPanel {
         boolean gameOver = false;
         if (this.isOver){
             this.cannon.destroy();
-            System.out.println("game over bicth");
+            System.out.println("game over bitch");
             gameOver = true;
         }
         return gameOver;
     }
     private void hit(){
-        this.shots.get(index).destroy();
-        this.ball.destroy();
+        this.shots.get(shotIndex).destroy();
+        this.balls.get(this.ballIndex).destroy();
         System.out.println(true);
     }
 
@@ -154,9 +175,9 @@ public class GamePanel extends JPanel {
 //        for (Shot shot: this.shots) {
 //            shot.draw(graphics2D);
 //        }
-        this.shots.get(this.index).draw(graphics2D);
+        this.shots.get(this.shotIndex).draw(graphics2D);
         this.cannon.draw(graphics2D);
-        this.ball.draw(graphics2D);
+        this.balls.get(this.ballIndex).draw(graphics2D);
 
     }
 

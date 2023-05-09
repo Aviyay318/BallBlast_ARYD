@@ -34,9 +34,7 @@ public abstract class Entity {
         this.height=0;
         this.width=0;
     }
-   protected void setRectangle(){
-       this.entityRectangle.setBounds(this.x,this.y,this.width,this.height);
-   }
+   protected abstract void setRectangle();
     public void draw(Graphics2D graphics2D){
         graphics2D.drawImage(this.image,this.x,this.y,this.width,this.height,null);
 

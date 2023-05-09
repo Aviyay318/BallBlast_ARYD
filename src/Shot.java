@@ -35,6 +35,9 @@ public class Shot extends Entity{
         this.width = Constants.SHOT_WIDTH;
         this.height =Constants.SHOT_HEIGHT;
     }
+    protected void setRectangle(){
+        this.entityRectangle.setBounds(this.x,this.y,this.width+20,this.height+20);
+    }
     @Override
     public String toString() {
         return "Shot{" +

@@ -107,7 +107,9 @@ public class Ball extends Entity{
         return score;
     }
 
-
+    public int getHealth() {
+        return health;
+    }
 
     public void draw(Graphics2D graphics2D){
         super.draw(graphics2D);
@@ -119,4 +121,6 @@ public class Ball extends Entity{
     protected void setRectangle(){
         this.entityRectangle.setBounds(this.x,this.y,this.width/2,this.height/2);
     }
+
+
 }
