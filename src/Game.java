@@ -51,6 +51,7 @@ public class Game implements Runnable{
             if (deltaU >= 1) {
                 update();
              if (this.gamePanel.gameOver()){
+                 this.topPanel.writeScore();
                  break;
              }
                 update++;

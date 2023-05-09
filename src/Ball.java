@@ -107,6 +107,8 @@ public class Ball extends Entity{
         return score;
     }
 
+
+
     public void draw(Graphics2D graphics2D){
         super.draw(graphics2D);
         graphics2D.setFont(new Font("arial",0,this.width/2));
