@@ -23,7 +23,8 @@ public class Game implements Runnable{
 
 
     private void update() {
-      this.gamePanel.update();
+        this.gamePanel.update();
+        this.gamePanel.revalidate();
 
     }
 

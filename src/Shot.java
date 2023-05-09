@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class Shot extends Entity{
 
     private Cannon cannon;
@@ -10,8 +8,11 @@ public class Shot extends Entity{
         setImage(Constants.SHOT_PATH);
         this.isShooting = false;
     }
+
     public void update(){
-        updateXPosition();
+        if (!this.isShooting){
+            updateXPosition();
+        }
         startShoot();
         setRectangle();
     }
@@ -21,18 +22,19 @@ public class Shot extends Entity{
     }
 
     public void setShooting(boolean shooting) {
-       this.isShooting = shooting;
+        this.isShooting = shooting;
     }
 
     private void startShoot(){
-
         if (this.isShooting){
-            this.y-=speed;
+            this.y-=10;
         }
-
     }
-
-
+    public void setShot(){
+        this.y = this.cannon.y;
+        this.width = Constants.SHOT_WIDTH;
+        this.height =Constants.SHOT_HEIGHT;
+    }
     @Override
     public String toString() {
         return "Shot{" +

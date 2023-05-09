@@ -14,6 +14,11 @@ public class GamePanel extends JPanel {
     private Shot shot;
     private boolean isOver;
     private  JLabel showScore;
+    private ArrayList<Shot> shots;
+    private int index;
+    private static boolean isShooting;
+    private boolean isUp;
+
     public GamePanel(){
         createBackGround();
         this.setLayout(null);
@@ -24,7 +29,11 @@ public class GamePanel extends JPanel {
         this.addKeyListener(new KeyBoard(this));
         this.cannon = new Cannon(410,Constants.CANNON_Y_POSITION,100,100);
         this.ball = new Ball();
-        this.shot= new Shot(this.cannon);
+        isShooting = false;
+        this.shots = new ArrayList<>();
+        this.shot  = new Shot(this.cannon);
+        createShots();
+        this.index = 0;
         this.isOver = false;
         this.showScore = new JLabel(Integer.toString(0),JLabel.CENTER);
         this.showScore.setFont(new Font("arial",Font.BOLD,50));
@@ -33,6 +42,13 @@ public class GamePanel extends JPanel {
         this.add(this.showScore);
 
     }
+
+    private void createShots() {
+        for(int i = 0; i<30; i++){
+            this.shots.add(new Shot(this.cannon));
+        }
+    }
+
 
     public Ball getBall() {
         return ball;
@@ -50,6 +66,18 @@ public class GamePanel extends JPanel {
         return cannon;
     }
 
+    public void setShooting(boolean shooting) {
+        isShooting = shooting;
+    }
+
+    public void newShot(){
+        if (isShooting){
+            this.shot = new Shot(this.cannon);
+            this.shot.update();
+        }
+
+
+    }
     public void update(){
         this.cannon.update();
         this.ball.update();
@@ -129,6 +157,7 @@ public class GamePanel extends JPanel {
         this.shots.get(this.index).draw(graphics2D);
         this.cannon.draw(graphics2D);
         this.ball.draw(graphics2D);
+
     }
 
 
