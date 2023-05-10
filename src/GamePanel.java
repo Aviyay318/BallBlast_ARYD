@@ -102,9 +102,9 @@ public class GamePanel extends JPanel {
             }
         }else if (this.ballIndex==5){
             this.ballIndex=0;
-//            for (Ball ball: this.balls) {
-//                ball.setBall();
-//            }
+            for (Ball ball: this.balls) {
+                ball.setBall();
+            }
         }
 
     }

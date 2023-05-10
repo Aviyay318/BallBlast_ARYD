@@ -10,7 +10,7 @@ public class Ball extends Entity{
     private static int score;
     public Ball(){
        this.random = new Random();
-       setImage(Constants.BALL_PATH);
+       setImage(Constants.BALLS_PATH[random.nextInt(0,4)]);
       createBall();
       this.shouldGoDown = true;
       this.xSpeed = 1;
@@ -123,4 +123,7 @@ public class Ball extends Entity{
     }
 
 
+    public void setBall() {
+        createBall();
+    }
 }
