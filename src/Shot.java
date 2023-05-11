@@ -1,47 +1,53 @@
 public class Shot extends Entity{
-
-    private Cannon cannon;
     private boolean isShooting;
-    public Shot(Cannon cannon){
-        super(cannon.x+40,cannon.y+10,Constants.SHOT_WIDTH,Constants.SHOT_HEIGHT);
-        this.cannon = cannon;
+    public Shot(int x){
+        super(x,Constants.CANNON_Y_POSITION,0,0);
         setImage(Constants.SHOT_PATH);
         this.isShooting = false;
     }
 
-    public void update(){
-        if (!this.isShooting){
-            updateXPosition();
-        }
-        startShoot();
+    public void update(boolean isM,int x){
+       updateXPosition(x);
+        startShoot(isM);
         setRectangle();
     }
 
-    private void updateXPosition() {
-        this.x = this.cannon.x+40;
+    private void updateXPosition(int x) {
+        this.x = x;
+    }
+    public void setShotVisible(boolean visible){
+        if (visible){
+            this.width=Constants.SHOT_WIDTH;
+            this.height=Constants.SHOT_HEIGHT;
+        } else {
+            this.width = 0;
+            this.height = 0;
+            this.y=740;
+        }
     }
 
-    public void setShooting(boolean shooting) {
-        this.isShooting = shooting;
-    }
+    private void startShoot(boolean isM){
+        if (isM){
+            if (this.y>=0){
+                setShotVisible(true);
+                this.y-=5;
+            }else {
+                this.y=Constants.CANNON_Y_POSITION;
+                this.setShotVisible(false);
+            }
 
-    private void startShoot(){
-        if (this.isShooting){
-            this.y-=10;
         }
     }
     public void setShot(){
-        this.y = this.cannon.y;
-        this.width = Constants.SHOT_WIDTH;
-        this.height =Constants.SHOT_HEIGHT;
+        this.y = Constants.CANNON_Y_POSITION;
     }
     protected void setRectangle(){
-        this.entityRectangle.setBounds(this.x,this.y,this.width+20,this.height+20);
+        this.entityRectangle.setBounds(this.x,this.y,this.width+10,this.height);
     }
     @Override
     public String toString() {
         return "Shot{" +
-                "isShooting=" + isShooting +
+                "isShooting=" + isShooting +"position: "+this.x+" , "+this.y+
                 '}';
     }
 }

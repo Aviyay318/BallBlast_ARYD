@@ -4,14 +4,6 @@ public class Game implements Runnable{
     private final int UPS_SEC = 200;
     private Thread gameThread;
     private  TopPanel topPanel;
-    public static final int TILES_DEFAULT_SIZE = 32;
-    public static final float SCALE =2f;
-    public static final int TILES_IN_WIDTH = 26;
-    public static final int TILES_IN_HEIGHT = 14;
-    public static final int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
-    public static final int GAME_WIDTH = TILES_SIZE*TILES_IN_WIDTH;
-    public static final int GAME_HEIGHT = TILES_SIZE*TILES_IN_HEIGHT;
-
     public Game(){
        this.gamePanel = new GamePanel();
        this.topPanel = new TopPanel(Constants.WIDTH,Constants.HEIGHT/18);

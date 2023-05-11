@@ -9,13 +9,14 @@ public class Ball extends Entity{
     private int health;
     private static int score;
     public Ball(){
-       this.random = new Random();
-       setImage(Constants.BALLS_PATH[random.nextInt(0,4)]);
-      createBall();
-      this.shouldGoDown = true;
-      this.xSpeed = 1;
+        this.random = new Random();
+        setImage(Constants.BALLS_PATH[random.nextInt(0,Constants.BALLS_PATH.length)]);
+        createBall();
+        this.shouldGoDown = true;
+        this.xSpeed = 1;
         this.entityRectangle.setBounds(this.x,this.y,this.width,this.height);
-        this.health = random.nextInt(30);
+        //this.health = random.nextInt(1,4);
+        this.health = 10;
         score=0;
     }
 
@@ -125,5 +126,6 @@ public class Ball extends Entity{
 
     public void setBall() {
         createBall();
+        this.health = random.nextInt(1,4);
     }
 }

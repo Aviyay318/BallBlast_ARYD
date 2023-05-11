@@ -1,24 +1,60 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Cannon extends Entity{
     private boolean left;
     private boolean right;
+    private ArrayList<Shot> shots;
+    private int shotIndex;
+    private boolean isMoving;
     public Cannon(int x,int y,int width,int height){
         super(x,y,width,height);
         this.right = false;
         this.left  =false;
         setImage(Constants.CANNON_PATH);
+        this.shots = new ArrayList<>();
+        createShots();
+        this.shotIndex = 0;
     }
 
 
     public void setRight(boolean right) {
         this.right = right;
     }
+    private void createShots() {
+        for(int i = 0; i<6; i++){
+            this.shots.add(new Shot(this.x));
+        }
+    }
+    private void updateShotIndex() {
+        if (this.isMoving){
+            if (this.shotIndex <5){
+                if (this.shots.get(this.shotIndex).y==0){
+                    System.out.println(this.shots.get(this.shotIndex)+"   "+this.shotIndex);
+                }
+            }else if(this.shotIndex==5) {
+                this.shotIndex = 0;
+                for (Shot shot: this.shots) {
+                    shot.setShot();
+                }
+            }
+
+        }
+
+    }
 
     public void update(){
         moveCannon();
+        isMoving();
+        this.shots.get(this.shotIndex).update(this.isMoving,this.x);
+        updateShotIndex();
         setRectangle();
+
     }
+    public Shot getShot() {
+        return this.shots.get(this.shotIndex);
+    }
+
     private void moveCannon(){
         if (this.left){
             if (this.x>=-10){
@@ -30,7 +66,14 @@ public class Cannon extends Entity{
             }
         }
     }
+    public void isMoving(){
 
+        if (this.left||this.right){
+            this.isMoving = true;
+        }else {
+            this.isMoving = false;
+        }
+    }
     public void destroy(){
         JLabel dialogMassage = new JLabel();
         JOptionPane.showMessageDialog(dialogMassage,"you lost bitch");
