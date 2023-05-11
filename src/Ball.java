@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -40,14 +41,15 @@ public class Ball extends Entity{
     }
 
     private void setSize() {
-        int size = random.nextInt(50,150);
+        //int size = random.nextInt(50,150);
+        int size = 150;
         this.width = size;
         this.height = size;
     }
 
     public void update(){
-     moveBall(); setRectangle();
-}
+        moveBall(); setRectangle();
+    }
 
     private void moveBall() {
         if (this.shouldGoDown){
@@ -80,11 +82,11 @@ public class Ball extends Entity{
 
 
     private void moveUp() {
-         if (this.y>0){
+        if (this.y>0){
             this.y-=speed;
         }else {
-             this.shouldGoDown = true;
-         }
+            this.shouldGoDown = true;
+        }
     }
 
     private void moveDown() {
@@ -114,9 +116,12 @@ public class Ball extends Entity{
 
     public void draw(Graphics2D graphics2D){
         super.draw(graphics2D);
-        graphics2D.setFont(new Font("arial",0,this.width/2));
+        int fontSize = 70;
+        graphics2D.setFont(new Font("arial",0,fontSize));
         graphics2D.setColor(Color.white);
-        graphics2D.drawString(Integer.toString(this.health),this.x+40,this.y+80);
+        //graphics2D.rotate( 10.0,this.x,this.y);
+        //getWidth() / 2 - stringWidth / 2
+        graphics2D.drawString(Integer.toString(this.health),(this.x+fontSize/2),(this.y+fontSize+fontSize/2));
 
     }
     protected void setRectangle(){

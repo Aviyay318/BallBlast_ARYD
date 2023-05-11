@@ -101,6 +101,7 @@ public class GamePanel extends JPanel {
             if (this.cannon.getShot().entityRectangle!=null){
                 if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle,this.cannon.getShot().entityRectangle)){
                     hit();
+
                 }
             }
             if (this.cannon.entityRectangle!=null){
@@ -121,8 +122,9 @@ public class GamePanel extends JPanel {
         }
         return gameOver;
     }
+
     private void hit(){
-        this.shots.get(shotIndex).destroy();
+        this.cannon.getShot().setShotVisible(false);
         this.balls.get(this.ballIndex).destroy();
         System.out.println(true);
     }

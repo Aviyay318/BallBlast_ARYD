@@ -26,23 +26,23 @@ public class TopPanel extends JPanel {
 
     private void readScore(){
 
-    if (this.file.exists()&&this.file!=null){
-        try {
-            FileReader fileReader =  new FileReader(this.file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        if (this.file.exists()&&this.file!=null){
+            try {
+                FileReader fileReader =  new FileReader(this.file);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
                 try {
                     score = Integer.valueOf(bufferedReader.readLine());
                 }catch (Exception e){
                     System.out.println("wtf");
                 }
-            bufferedReader.close();
-            fileReader.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+                bufferedReader.close();
+                fileReader.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
 
+        }
     }
-}
 
     public void writeScore(){
 
