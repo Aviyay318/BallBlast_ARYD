@@ -14,7 +14,7 @@ public class GamePanel extends JPanel {
     private ArrayList<Ball> balls;
     private int ballIndex;
     private Instructions instructions;
-    private static   boolean gameOver;
+    private boolean gameOver;
     private KeyBoard keyBoard;
     private static JButton retry;
     private JButton pause;
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel {
         createScore();
        this.instructions=instructions;
         this.add(this.instructions);
-        gameOver=false;
+        this.gameOver=false;
         retry = new JButton("Retry");
 
     }
@@ -80,9 +80,11 @@ public class GamePanel extends JPanel {
             updateScore();
             this.showScore.setVisible(true);
             retry.setVisible(false);
+            System.out.println("ergggggggggggggggggggggggggggggggggggggggggggggggggggg");
           //  createButtonPause();
-        }else if (gameOver){
+        }else if (this.gameOver){
             createButtonRetry();
+            System.out.println("rvfvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
         }
 
 
@@ -115,8 +117,8 @@ public class GamePanel extends JPanel {
         this.add(this.pause);
         this.pause.setVisible(true);
         this.pause.addActionListener((e ->{
-            gameOver=true;
-            System.out.println(gameOver);
+            this.gameOver=true;
+            System.out.println("?/?00" + this.gameOver);
             restart();
 
         }));
@@ -153,7 +155,7 @@ public class GamePanel extends JPanel {
             }
             if (this.cannon.entityRectangle!=null){
                 if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle,this.cannon.entityRectangle)){
-                    gameOver=true;
+                    this.gameOver=true;
                 }
             }
         }
@@ -163,7 +165,7 @@ public class GamePanel extends JPanel {
     public void restart(){
         this.ballIndex = 0;
         this.isOver = false;
-        gameOver=false;
+        this.gameOver=false;
         this.cannon.restart();
         this.setFocusable(true);
         this.requestFocus(true);
@@ -174,7 +176,7 @@ public class GamePanel extends JPanel {
     public void gameOver(){
         if (this.isOver){
             this.cannon.destroy();
-            gameOver = true;
+            this.gameOver = true;
         }
     }
 
@@ -183,7 +185,7 @@ public class GamePanel extends JPanel {
     }
 
     public void setGameOver(boolean gameOver) {
-        gameOver = gameOver;
+        this.gameOver = this.gameOver;
     }
 
     private void hit(){

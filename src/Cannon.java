@@ -94,9 +94,7 @@ public class Cannon extends Entity{
         this.right = false;
         this.left  =false;
         this.shotIndex = 0;
-//        this.shots = new ArrayList<>();
-//        createShots();
-        System.out.println(this.shots.size());
+
 
     }
 }

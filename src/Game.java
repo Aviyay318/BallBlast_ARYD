@@ -4,13 +4,12 @@ public class Game implements Runnable{
     private final int UPS_SEC = 200;
     private Thread gameThread;
     private  TopPanel topPanel;
-    private Retry retry;
+
     private Instructions instructions;
     public Game(){
         this.topPanel = new TopPanel(Constants.WIDTH,Constants.HEIGHT/18);
         this.instructions = new Instructions(140,100,Constants.INSTRUCTION_WIDTH,Constants.INSTRUCTION_HEIGHT, this.topPanel.getScore());
        this.gamePanel = new GamePanel(this.instructions);
-       //this.retry = new Retry(0,0,Constants.PANEL_THREE_WIDTH,Constants.PANEL_THREE_HEIGHT);
        new Frame(this.topPanel ,this.gamePanel);
         startGameLoop();
     }
@@ -49,9 +48,6 @@ public class Game implements Runnable{
                 update();
              if (this.gamePanel.isGameOver()){
                  this.topPanel.writeScore();
-//               this.instructions.setStart(false);
-//                 this.retry.setVisible(true);
-              //   this.gamePanel.setOpaque(false);
              }
 
                 update++;

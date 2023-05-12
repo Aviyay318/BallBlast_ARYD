@@ -15,8 +15,7 @@ public class KeyBoard implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
-            case KeyEvent.VK_LEFT -> {this.gamePanel.getCannon().setLeft(true);
-                System.out.println("jkj");}
+            case KeyEvent.VK_LEFT -> {this.gamePanel.getCannon().setLeft(true);}
             case KeyEvent.VK_RIGHT -> {this.gamePanel.getCannon().setRight(true);}
         }
     }
