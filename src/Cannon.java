@@ -25,8 +25,7 @@ public class Cannon extends Entity{
         for(int i = 0; i<6; i++){
             this.shots.add(new Shot(this.x));
         }
-    }
-    private void updateShotIndex() {
+    } private void updateShotIndex() {
         if (this.isMoving){
             if (this.shotIndex <5){
                 if (this.shots.get(this.shotIndex).y==0){
@@ -46,7 +45,9 @@ public class Cannon extends Entity{
     public void update(){
         moveCannon();
         isMoving();
-        this.shots.get(this.shotIndex).update(this.isMoving,this.x);
+        if (this.shots.size()>0){
+            this.shots.get(this.shotIndex).update(this.isMoving,this.x);
+        }
         updateShotIndex();
         setRectangle();
 
@@ -75,8 +76,7 @@ public class Cannon extends Entity{
         }
     }
     public void destroy(){
-        JLabel dialogMassage = new JLabel();
-        JOptionPane.showMessageDialog(dialogMassage,"you lost bitch");
+       // System.out.println("you lost bitch");
     }
 
     public void setLeft(boolean left) {
@@ -86,5 +86,17 @@ public class Cannon extends Entity{
 
     protected void setRectangle(){
         this.entityRectangle.setBounds(this.x,this.y,this.width/3,this.height/2);
+    }
+
+    public void restart() {
+        this.x = 410;
+        this.y=Constants.CANNON_Y_POSITION;
+        this.right = false;
+        this.left  =false;
+        this.shotIndex = 0;
+//        this.shots = new ArrayList<>();
+//        createShots();
+        System.out.println(this.shots.size());
+
     }
 }

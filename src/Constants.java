@@ -6,6 +6,9 @@ public class Constants {
     public static final int GRASS_HEIGHT = 720;
     public static final int LEFT_POSITION = 0;
     public static final int RIGHT_POSITION = 800;
+    public static final int BIG_BALL = 1;
+    public static final int SMALL_BALL = 2;
+    public static final int QUESTION_BALL = 3;
 
     public static final String SHOT_PATH = "res/clipart4628922.png";
     public static final int SHOT_WIDTH = 30;

@@ -14,22 +14,30 @@ public class GamePanel extends JPanel {
     private ArrayList<Ball> balls;
     private int ballIndex;
     private Instructions instructions;
+    private static   boolean gameOver;
+    private KeyBoard keyBoard;
+    private static JButton retry;
+    private JButton pause;
 
-    public GamePanel(){
+    private Icon retryIcon;
+    public GamePanel(Instructions instructions){
         createBackGround();
         this.setLayout(null);
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
         this.requestFocus(true);
-        this.addKeyListener(new KeyBoard(this));
+        this.keyBoard = new KeyBoard(this);
+        this.addKeyListener(this.keyBoard);
         this.cannon = new Cannon(410,Constants.CANNON_Y_POSITION,100,100);
         this.balls = new ArrayList<>();
         createBalls();
         this.ballIndex = 0;
         this.isOver = false;
         createScore();
-        this.instructions = new Instructions(140,100,Constants.INSTRUCTION_WIDTH,Constants.INSTRUCTION_HEIGHT);
+       this.instructions=instructions;
         this.add(this.instructions);
+        gameOver=false;
+        retry = new JButton("Retry");
 
     }
 
@@ -63,16 +71,55 @@ public class GamePanel extends JPanel {
 
 
     public void update(){
-        if (this.instructions.isStart()){
+        if (this.instructions.isStart()&&!gameOver){
             this.cannon.update();
             this.balls.get(this.ballIndex).update();
+            //this.balls.get(this.ballIndex+1).update();
             updateBallIndex();
             checkCollision();
             updateScore();
             this.showScore.setVisible(true);
+            retry.setVisible(false);
+          //  createButtonPause();
+        }else if (gameOver){
+            createButtonRetry();
         }
 
 
+    }
+    private void createButtonRetry() {
+        this.retryIcon = new ImageIcon("res/newimag.png");
+        retry.setBounds(300,300,200,200);
+       retry.setIcon(this.retryIcon);
+        retry.setOpaque(false);
+        retry.setContentAreaFilled(false);
+        retry.setBorderPainted(false);
+        this.add(retry);
+        retry.setVisible(true);
+        retry.addActionListener((e ->{
+         retry.setVisible(false);
+            restart();
+
+        }));
+
+
+    }
+
+    private void createButtonPause() {
+        this.retryIcon = new ImageIcon("res/newimag.png");
+        this.pause.setBounds(30,30,200,200);
+        this.pause.setIcon(this.retryIcon);
+        this.pause.setOpaque(false);
+        this.pause.setContentAreaFilled(false);
+        this.pause.setBorderPainted(false);
+        this.add(this.pause);
+        this.pause.setVisible(true);
+        this.pause.addActionListener((e ->{
+            gameOver=true;
+            System.out.println(gameOver);
+            restart();
+
+        }));
     }
 
     private void updateBallIndex() {
@@ -106,21 +153,37 @@ public class GamePanel extends JPanel {
             }
             if (this.cannon.entityRectangle!=null){
                 if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle,this.cannon.entityRectangle)){
-                    this.isOver=true;
+                    gameOver=true;
                 }
             }
         }
 
 
     }
-    public boolean gameOver(){
-        boolean gameOver = false;
+    public void restart(){
+        this.ballIndex = 0;
+        this.isOver = false;
+        gameOver=false;
+        this.cannon.restart();
+        this.setFocusable(true);
+        this.requestFocus(true);
+        this.keyBoard = new KeyBoard(this);
+        this.addKeyListener(this.keyBoard);
+
+    }
+    public void gameOver(){
         if (this.isOver){
             this.cannon.destroy();
-            System.out.println("game over bitch");
             gameOver = true;
         }
+    }
+
+    public boolean isGameOver() {
         return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        gameOver = gameOver;
     }
 
     private void hit(){
@@ -139,6 +202,7 @@ public class GamePanel extends JPanel {
             this.cannon.getShot().draw(graphics2D);
             this.cannon.draw(graphics2D);
             this.balls.get(this.ballIndex).draw(graphics2D);
+            //this.balls.get(this.ballIndex+1).draw(graphics2D);
         }
 
 

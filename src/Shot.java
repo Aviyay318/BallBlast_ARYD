@@ -1,9 +1,13 @@
 public class Shot extends Entity{
     private boolean isShooting;
+    private int speedShot;
+
     public Shot(int x){
         super(x,Constants.CANNON_Y_POSITION,0,0);
         setImage(Constants.SHOT_PATH);
         this.isShooting = false;
+        this.speedShot=5;
+
     }
 
     public void update(boolean isM,int x){
@@ -13,7 +17,10 @@ public class Shot extends Entity{
     }
 
     private void updateXPosition(int x) {
-        this.x = x;
+        if (this.y>=740){
+            this.x = x+30;
+        }
+
     }
     public void setShotVisible(boolean visible){
         if (visible){
@@ -27,22 +34,30 @@ public class Shot extends Entity{
     }
 
     private void startShoot(boolean isM){
-        if (isM){
+        if (isM||this.y<740){
             if (this.y>=0){
                 setShotVisible(true);
-                this.y-=5;
+                this.y-=this.speedShot;
             }else {
                 this.y=Constants.CANNON_Y_POSITION;
                 this.setShotVisible(false);
             }
-
         }
     }
+
+    public void setSpeedShot(int speedShot) {
+        this.speedShot = speedShot;
+    }
+
     public void setShot(){
         this.y = Constants.CANNON_Y_POSITION;
     }
     protected void setRectangle(){
         this.entityRectangle.setBounds(this.x,this.y,this.width+10,this.height);
+    }
+    public void restart(){
+        this.isShooting = false;
+        this.speedShot=5;
     }
     @Override
     public String toString() {

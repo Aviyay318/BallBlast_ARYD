@@ -27,7 +27,7 @@ public class Instructions extends JPanel {
     private boolean isStart;
     private int index;
 
-    public Instructions(int x,int y,int width,int height){
+    public Instructions(int x,int y,int width,int height,int highScore){
         this.setSize(width,height);
         this.setLocation(x,y);
         this.setLayout(null);
@@ -42,7 +42,7 @@ public class Instructions extends JPanel {
         addBallLabel();
         addMoveInstructions();
         addShootInstructions();
-        addHighScore();
+        addHighScore(highScore);
         addProgressBar();
         createButtonStart();
 
@@ -106,9 +106,9 @@ public class Instructions extends JPanel {
         this.shootInstructions.setVisible(true);
         this.shootInstructions.setForeground(new Color(238,177,255));
     }
-    public void addHighScore(){
+    public void addHighScore(int highScore){
         this.highScore = new JLabel("",JLabel.LEFT);
-        this.highScore.setText(Integer.toString(TopPanel.getScore()));
+        this.highScore.setText(Integer.toString(highScore));
         this.highScore.setBounds(this.blast.getX()+170,this.blast.getY()+120,100,20);
         this.highScore.setFont(new Font("arial",Font.BOLD,20));
         this.add(this.highScore, BorderLayout.CENTER);
@@ -142,18 +142,19 @@ public class Instructions extends JPanel {
         }));
     }
     public void fillProgressBar(){
-        while(this.progressBarCounter <= 100) {
-            this.jProgressBar.setValue(this.progressBarCounter);
-            try {
-                Thread.sleep(15);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            this.progressBarCounter+=1;
-        }
+//        while(this.progressBarCounter <= 100) {
+//            this.jProgressBar.setValue(this.progressBarCounter);
+//            try {
+//                Thread.sleep(15);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//            this.progressBarCounter+=1;
+//        }
     }
-    public void update(){
 
+    public void setStart(boolean start) {
+        isStart = start;
     }
 
     private void loadImages(){

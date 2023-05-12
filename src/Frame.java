@@ -16,6 +16,7 @@ private Image icon;
        this.setLocationRelativeTo(null);
        this.add(topPanel,BorderLayout.NORTH);
         this.add(game,BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 
