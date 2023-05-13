@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Cannon extends Entity{
@@ -22,16 +21,16 @@ public class Cannon extends Entity{
         this.right = right;
     }
     private void createShots() {
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<Constants.BALLS_AND_SHOOTS_LIST_SIZE; i++){
             this.shots.add(new Shot(this.x));
         }
     } private void updateShotIndex() {
         if (this.isMoving){
-            if (this.shotIndex <5){
+            if (this.shotIndex <this.shots.size()){
                 if (this.shots.get(this.shotIndex).y==0){
                     System.out.println(this.shots.get(this.shotIndex)+"   "+this.shotIndex);
                 }
-            }else if(this.shotIndex==5) {
+            }else if(this.shotIndex==this.shots.size()) {
                 this.shotIndex = 0;
                 for (Shot shot: this.shots) {
                     shot.setShot();
@@ -89,7 +88,7 @@ public class Cannon extends Entity{
     }
 
     public void restart() {
-        this.x = 410;
+        this.x = Constants.CANNON_X_POSITION;
         this.y=Constants.CANNON_Y_POSITION;
         this.right = false;
         this.left  =false;

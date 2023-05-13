@@ -12,15 +12,10 @@ public class Instructions extends JPanel {
     private JLabel smallBall;
     private JLabel highScore;
     private JLabel moveInstructions;
-    private JLabel shootInstructions;
 
     private BufferedImage crown;
     private BufferedImage [] leftKey;
     private BufferedImage [] rightKey;
-    private BufferedImage [] spaceKey;
-
-    private JProgressBar jProgressBar;
-    private int progressBarCounter;
 
     private JButton start;
     private Icon startIcon;
@@ -35,15 +30,12 @@ public class Instructions extends JPanel {
         this.setOpaque(false);
         this.isStart = false;
         this.index = 0;
-        this.progressBarCounter = 0;
         loadImages();
         addCrown();
         addBlastLabel();
         addBallLabel();
         addMoveInstructions();
-        addShootInstructions();
         addHighScore(highScore);
-        addProgressBar();
         createButtonStart();
 
         this.setVisible(true);
@@ -91,21 +83,14 @@ public class Instructions extends JPanel {
         }
     }
     public void addMoveInstructions(){
-        this.moveInstructions = new JLabel("To move PRESS:",JLabel.LEFT);
-        this.moveInstructions.setBounds(this.blast.getX()+25,this.blast.getY()+160,300,100);
+        this.moveInstructions = new JLabel("To move and shoot PRESS:",JLabel.LEFT);
+        this.moveInstructions.setBounds(this.blast.getX()-40,this.blast.getY()+160,400,100);
         this.moveInstructions.setFont(new Font("arial",Font.BOLD,30));
         this.add(this.moveInstructions, BorderLayout.CENTER);
         this.moveInstructions.setVisible(true);
         this.moveInstructions.setForeground(new Color(238,177,255));
     }
-    public void addShootInstructions(){
-        this.shootInstructions = new JLabel("To shoot PRESS:",JLabel.LEFT);
-        this.shootInstructions.setBounds(this.moveInstructions.getX(),this.moveInstructions.getY()+100,300,100);
-        this.shootInstructions.setFont(new Font("arial",Font.BOLD,30));
-        this.add(this.shootInstructions, BorderLayout.CENTER);
-        this.shootInstructions.setVisible(true);
-        this.shootInstructions.setForeground(new Color(238,177,255));
-    }
+
     public void addHighScore(int highScore){
         this.highScore = new JLabel("",JLabel.LEFT);
         this.highScore.setText(Integer.toString(highScore));
@@ -115,43 +100,28 @@ public class Instructions extends JPanel {
         this.highScore.setVisible(true);
         this.highScore.setForeground(new Color(238,177,255));
     }
-    public void addProgressBar(){
-        this.jProgressBar = new JProgressBar();
-        this.jProgressBar.setBounds(Constants.INSTRUCTION_WIDTH/3,Constants.INSTRUCTION_HEIGHT/3+200,200,30);
-        this.jProgressBar.setStringPainted(true);
-        this.jProgressBar.setFont(new Font("arial",Font.BOLD,20));
-        this.jProgressBar.setBackground(Color.white);
-        this.jProgressBar.setForeground(new Color(238,177,255));
-        this.add(this.jProgressBar);
-        this.jProgressBar.setVisible(false);
-    }
+
     private void createButtonStart() {
         this.start = new JButton();
         this.startIcon = new ImageIcon("res/instructions/start.png");
-        this.start.setBounds(this.jProgressBar.getX()+45,this.jProgressBar.getY(),this.startIcon.getIconWidth(),this.startIcon.getIconHeight());
+        this.start.setBounds(Constants.INSTRUCTION_WIDTH/3+45,Constants.INSTRUCTION_HEIGHT/3+200,this.startIcon.getIconWidth(),this.startIcon.getIconHeight());
         this.start.setIcon(this.startIcon);
         this.start.setOpaque(false);
         this.start.setContentAreaFilled(false);
         this.add(this.start);
         this.start.setVisible(true);
         this.start.addActionListener((e ->{
-            this.jProgressBar.setVisible(true);
-            fillProgressBar();
+            this.music.stopMusic();
+            this.music.loadMusicClip(Sound.TRANSITION_NUM);
+            this.music.playMusic();
+            this.music.stopMusic();
             this.isStart = true;
             this.setVisible(false);
+            this.music.loadMusicClip(Sound.DURING_NUM);
+            this.music.playMusic();
         }));
     }
-    public void fillProgressBar(){
-//        while(this.progressBarCounter <= 100) {
-//            this.jProgressBar.setValue(this.progressBarCounter);
-//            try {
-//                Thread.sleep(15);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//            this.progressBarCounter+=1;
-//        }
-    }
+
 
     public void setStart(boolean start) {
         isStart = start;
@@ -161,7 +131,6 @@ public class Instructions extends JPanel {
         try {
             this.rightKey = new BufferedImage[]{ImageIO.read(new File("res/instructions/rightUnPressed.png")), ImageIO.read(new File("res/instructions/rightPressed.png"))};
             this.leftKey = new BufferedImage[]{ImageIO.read(new File("res/instructions/leftUnPressed.png")), ImageIO.read(new File("res/instructions/leftPressed.png"))};
-            this.spaceKey = new BufferedImage[]{ImageIO.read(new File("res/instructions/spaceUnPressed.png")), ImageIO.read(new File("res/instructions/spacePressed.png"))};
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -181,8 +150,7 @@ public class Instructions extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.drawImage(this.crown,this.highScore.getX()-38,this.highScore.getY(),30,20,null);
-        keysAnimation(graphics2D,this.leftKey,this.moveInstructions.getX()+70,this.moveInstructions.getY()+70,50,50);
-        keysAnimation(graphics2D,this.rightKey,this.moveInstructions.getX()+130,this.moveInstructions.getY()+70,50,50);
-        keysAnimation(graphics2D,this.spaceKey,this.shootInstructions.getX()+25,this.shootInstructions.getY()+70,200,40);
+        keysAnimation(graphics2D,this.leftKey,this.moveInstructions.getX()+130,this.moveInstructions.getY()+80,50,50);
+        keysAnimation(graphics2D,this.rightKey,this.moveInstructions.getX()+190,this.moveInstructions.getY()+80,50,50);
     }
 }

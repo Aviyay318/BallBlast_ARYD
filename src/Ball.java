@@ -93,7 +93,6 @@ public class Ball extends Entity{
         setXPosition();
         setYPosition();
         setProperties();
-       // this.sound.loadPopSound();
     }
     public void update(){
         stringPosition();
@@ -148,11 +147,11 @@ public class Ball extends Entity{
     }
     public void destroy(){
         if (this.health==0){
-           // this.sound.playPopSound();
             this.height=0;
             this.width=0;
         }else {
             this.health--;
+            setImage(Constants.BALLS_PATH[random.nextInt(0, Constants.BALLS_PATH.length)]);
             score++;
         }
     }
@@ -164,6 +163,22 @@ public class Ball extends Entity{
     }
     public void setBall() {
         createBall();
-        //this.health = random.nextInt(1,4);
+    }
+
+    public void questionMarkPrizes(){
+        int prizes = random.nextInt(1,4);
+        switch (prizes){
+            case Constants.FASTER_SHOTS -> {System.out.println("faster shoot");}
+            case Constants.DOUBLE_POINTS -> {System.out.println("double points");}
+            case Constants.DOUBLE_SHOOTS -> {System.out.println("double shoot");}
+        }
+    }
+
+
+    public void restart() {
+        createBall();
+        this.shouldGoDown = true;
+        this.entityRectangle.setBounds(this.x, this.y, this.width, this.height);
+        score = 0;
     }
 }

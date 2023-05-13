@@ -22,7 +22,7 @@ private Image icon;
 
     private void createIcon() {
         try {
-            this.icon = ImageIO.read(new File("res/icon.png"));
+            this.icon = ImageIO.read(new File(Constants.ICON_PATH));
         }catch (IOException e){
             e.printStackTrace();
         }

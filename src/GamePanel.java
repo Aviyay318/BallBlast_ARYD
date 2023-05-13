@@ -28,7 +28,7 @@ public class GamePanel extends JPanel {
         this.requestFocus(true);
         this.keyBoard = new KeyBoard(this);
         this.addKeyListener(this.keyBoard);
-        this.cannon = new Cannon(410,Constants.CANNON_Y_POSITION,100,100);
+        this.cannon = new Cannon(Constants.CANNON_X_POSITION,Constants.CANNON_Y_POSITION,Constants.CANNON_SIZE,Constants.CANNON_SIZE);
         this.balls = new ArrayList<>();
         createBalls();
         this.ballIndex = 0;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
     }
 
     private void createBalls() {
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<Constants.BALLS_AND_SHOOTS_LIST_SIZE; i++){
             this.balls.add(new Ball());
         }
     }
@@ -74,29 +74,30 @@ public class GamePanel extends JPanel {
         if (this.instructions.isStart()&&!gameOver){
             this.cannon.update();
             this.balls.get(this.ballIndex).update();
-            //this.balls.get(this.ballIndex+1).update();
             updateBallIndex();
             checkCollision();
             updateScore();
             this.showScore.setVisible(true);
             retry.setVisible(false);
-            System.out.println("ergggggggggggggggggggggggggggggggggggggggggggggggggggg");
-          //  createButtonPause();
+            //  createButtonPause();
         }else if (this.gameOver){
-            createButtonRetry();
-            System.out.println("rvfvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+            Retry();
         }
 
 
     }
-    private void createButtonRetry() {
-        this.retryIcon = new ImageIcon("res/newimag.png");
+    private void createButtonRetry(){
+        retry = new JButton("Retry");
+        this.retryIcon = new ImageIcon(Constants.RETRY_ICON_PATH);
         retry.setBounds(300,300,200,200);
-       retry.setIcon(this.retryIcon);
+        retry.setIcon(this.retryIcon);
         retry.setOpaque(false);
         retry.setContentAreaFilled(false);
         retry.setBorderPainted(false);
         this.add(retry);
+        retry.setVisible(false);
+    }
+    private void Retry() {
         retry.setVisible(true);
         retry.addActionListener((e ->{
          retry.setVisible(false);
@@ -125,11 +126,11 @@ public class GamePanel extends JPanel {
     }
 
     private void updateBallIndex() {
-        if (this.ballIndex<5){
+        if (this.ballIndex<this.balls.size()){
             if (this.balls.get(this.ballIndex).getHealth()==0){
                 this.ballIndex++;
             }
-        }else if (this.ballIndex==5){
+        }else if (this.ballIndex==this.balls.size()){
             this.ballIndex=0;
             for (Ball ball: this.balls) {
                 ball.setBall();
@@ -164,34 +165,23 @@ public class GamePanel extends JPanel {
     }
     public void restart(){
         this.ballIndex = 0;
-        this.isOver = false;
+        this.balls.get(this.ballIndex).restart();
         this.gameOver=false;
         this.cannon.restart();
         this.setFocusable(true);
         this.requestFocus(true);
         this.keyBoard = new KeyBoard(this);
         this.addKeyListener(this.keyBoard);
-
+        this.sounds.playMusic();
     }
-    public void gameOver(){
-        if (this.isOver){
-            this.cannon.destroy();
-            this.gameOver = true;
-        }
-    }
-
     public boolean isGameOver() {
         return gameOver;
     }
 
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = this.gameOver;
-    }
 
     private void hit(){
         this.cannon.getShot().setShotVisible(false);
         this.balls.get(this.ballIndex).destroy();
-        System.out.println(true);
     }
 
 
@@ -204,7 +194,6 @@ public class GamePanel extends JPanel {
             this.cannon.getShot().draw(graphics2D);
             this.cannon.draw(graphics2D);
             this.balls.get(this.ballIndex).draw(graphics2D);
-            //this.balls.get(this.ballIndex+1).draw(graphics2D);
         }
 
 
