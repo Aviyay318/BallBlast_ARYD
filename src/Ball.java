@@ -103,7 +103,12 @@ public class Ball extends Entity{
         super.draw(graphics2D);
         graphics2D.setFont(this.font);
         graphics2D.setColor(Color.white);
-        graphics2D.drawString(Integer.toString(this.health),this.stringX,this.stringY);
+        if (this.level==QUESTION_BALL){
+            graphics2D.drawString("?",this.stringX,this.stringY);
+
+        }else {
+            graphics2D.drawString(Integer.toString(this.health),this.stringX,this.stringY);
+        }
     }
     private void moveBall() {
         if (this.shouldGoDown){
@@ -150,9 +155,16 @@ public class Ball extends Entity{
             this.height=0;
             this.width=0;
         }else {
+            if (this.level==QUESTION_BALL){
+                this.width+=20;
+                this.height+=20;
+
+            }else {
+                setImage(Constants.BALLS_PATH[random.nextInt(0, Constants.BALLS_PATH.length)]);
+                score++;
+            }
             this.health--;
-            setImage(Constants.BALLS_PATH[random.nextInt(0, Constants.BALLS_PATH.length)]);
-            score++;
+
         }
     }
     public static int getScore() {
