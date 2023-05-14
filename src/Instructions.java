@@ -121,12 +121,12 @@ public class Instructions extends JPanel {
         this.start.setVisible(true);
         this.start.addActionListener((e ->{
             this.music.stopMusic();
-            this.music.loadMusicClip(Sound.TRANSITION_NUM);
+            this.music.loadMusicClip(Constants.TRANSITION_NUM);
             this.music.playMusic();
             this.music.stopMusic();
             this.isStart = true;
             this.setVisible(false);
-            this.music.loadMusicClip(Sound.DURING_NUM);
+            this.music.loadMusicClip(Constants.DURING_NUM);
             this.music.playMusic();
         }));
     }

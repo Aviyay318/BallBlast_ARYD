@@ -73,9 +73,6 @@ public class Cannon extends Entity{
             this.isMoving = false;
         }
     }
-    public void destroy(){
-       // System.out.println("you lost bitch");
-    }
 
     public void setLeft(boolean left) {
         this.left = left;
