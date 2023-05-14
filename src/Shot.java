@@ -17,7 +17,7 @@ public class Shot extends Entity{
     }
 
     private void updateXPosition(int x) {
-        if (this.y>=740){
+        if (this.y>=Constants.CANNON_Y_POSITION){
             this.x = x+30;
         }
 
@@ -29,12 +29,12 @@ public class Shot extends Entity{
         } else {
             this.width = 0;
             this.height = 0;
-            this.y=740;
+            this.y=Constants.CANNON_Y_POSITION;
         }
     }
 
     private void startShoot(boolean isM){
-        if (isM||this.y<740){
+        if (isM||this.y<Constants.CANNON_Y_POSITION){
             if (this.y>=0){
                 setShotVisible(true);
                 this.y-=this.speedShot;
