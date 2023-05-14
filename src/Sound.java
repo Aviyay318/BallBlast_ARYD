@@ -33,13 +33,6 @@ public class Sound {
                     this.musicClip.open(this.musicStream);
                     this.currentMusicPlaying = Constants.INTRO_NUM;
                 }
-                case Constants.TRANSITION_NUM -> {
-                    this.musicClip.close();
-                    this.musicStream = AudioSystem.getAudioInputStream(new File(Constants.TRANSITION));
-                    this.musicClip.open(this.musicStream);
-                    this.currentMusicPlaying = Constants.TRANSITION_NUM;
-
-                }
                 case Constants.DURING_NUM -> {
                     this.musicClip.close();
                     this.musicStream = AudioSystem.getAudioInputStream(new File(Constants.DURING));
@@ -61,6 +54,9 @@ public class Sound {
     }
     public void stopMusic(){
         this.musicClip.stop();
+    }
+    public void closeMusic(){
+        this.musicClip.close();
     }
 
     public void loadHitSound(){

@@ -22,7 +22,6 @@ public class Instructions extends JPanel {
     private boolean isStart;
     private int index;
 
-    private boolean hasClosed;
     private Sound music;
 
     public Instructions(int x,int y,int width,int height,int highScore){
@@ -40,7 +39,6 @@ public class Instructions extends JPanel {
         addMoveInstructions();
         addHighScore(highScore);
         createButtonStart();
-        this.hasClosed = false;
         this.music = new Sound();
         addMusic();
         this.setVisible(true);
@@ -121,17 +119,11 @@ public class Instructions extends JPanel {
         this.add(this.start);
         this.start.setVisible(true);
         this.start.addActionListener((e ->{
-            this.music.stopMusic();
-            this.music.loadMusicClip(Constants.TRANSITION_NUM);
-            this.music.playMusic();
-            this.music.stopMusic();
             this.isStart = true;
             this.setVisible(false);
-            this.hasClosed = true;
+            this.music.loadMusicClip(Constants.DURING_NUM);
+            this.music.playMusic();
         }));
-    }
-    public boolean getHasClosed(){
-        return this.hasClosed;
     }
 
     public void setStart(boolean start) {
@@ -163,7 +155,7 @@ public class Instructions extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.drawImage(this.crown,this.highScore.getX()-38,this.highScore.getY(),30,20,null);
-        keysAnimation(graphics2D,this.leftKey,this.moveInstructions.getX()+130,this.moveInstructions.getY()+80,50,50);
-        keysAnimation(graphics2D,this.rightKey,this.moveInstructions.getX()+190,this.moveInstructions.getY()+80,50,50);
+        keysAnimation(graphics2D,this.leftKey,this.moveInstructions.getX()+135,this.moveInstructions.getY()+80,50,50);
+        keysAnimation(graphics2D,this.rightKey,this.moveInstructions.getX()+195,this.moveInstructions.getY()+80,50,50);
     }
 }

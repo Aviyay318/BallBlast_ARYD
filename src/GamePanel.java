@@ -46,6 +46,7 @@ public class GamePanel extends JPanel {
         this.add(this.instructions);
         this.gameOver = false;
         this.sounds = new Sound();
+        this.sounds.loadHitSound();
         this.canStartPlayingMusic = false;
         createMuteButton();
         this.restartTimes = 0;

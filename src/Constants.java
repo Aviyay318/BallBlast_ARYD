@@ -9,7 +9,6 @@ public class Constants {
 
 
 
-
     public static final String ICON_PATH = "res/icon.png";
     public static final String RETRY_ICON_PATH = "res/retry.png";
 
@@ -49,13 +48,7 @@ public class Constants {
 
 
 
-
-
-
-
-
     public static final String INTRO = "res/sounds/music/ballBlastIntro.wav";
-    public static final String TRANSITION = "res/sounds/music/ballBlastTransition.wav";
     public static final String DURING = "res/sounds/music/ballBlastDuringGame.wav";
     public static final String SHOOTING = "res/sounds/shooting.wav";
     public static final String POP = "res/sounds/pop.wav";
