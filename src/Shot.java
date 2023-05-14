@@ -1,4 +1,4 @@
-public class Shot extends Entity{
+public  class Shot extends Entity{
     private boolean isShooting;
     private int speedShot;
 
@@ -6,7 +6,7 @@ public class Shot extends Entity{
         super(x,Constants.CANNON_Y_POSITION,0,0);
         setImage(Constants.SHOT_PATH);
         this.isShooting = false;
-        this.speedShot=5;
+        this.speedShot=15;
 
     }
 
@@ -45,20 +45,16 @@ public class Shot extends Entity{
         }
     }
 
-    public void setSpeedShot(int speedShot) {
-        this.speedShot = speedShot;
-    }
 
     public void setShot(){
         this.y = Constants.CANNON_Y_POSITION;
     }
+
+
     protected void setRectangle(){
         this.entityRectangle.setBounds(this.x,this.y,this.width+10,this.height);
     }
-    public void restart(){
-        this.isShooting = false;
-        this.speedShot=5;
-    }
+
     @Override
     public String toString() {
         return "Shot{" +

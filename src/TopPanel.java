@@ -33,7 +33,7 @@ public class TopPanel extends JPanel {
                 try {
                     score = Integer.valueOf(bufferedReader.readLine());
                 }catch (Exception e){
-                    System.out.println("wtf");
+                   e.getStackTrace();
                 }
                 bufferedReader.close();
                 fileReader.close();
