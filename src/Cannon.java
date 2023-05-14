@@ -28,7 +28,6 @@ public class Cannon extends Entity{
         if (this.isMoving){
             if (this.shotIndex <this.shots.size()){
                 if (this.shots.get(this.shotIndex).y==0){
-                    System.out.println(this.shots.get(this.shotIndex)+"   "+this.shotIndex);
                 }
             }else if(this.shotIndex==this.shots.size()) {
                 this.shotIndex = 0;
