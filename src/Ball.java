@@ -12,6 +12,7 @@ public class Ball extends Entity {
     private boolean shouldGoDown;
     private boolean shouldGoRight;
     private static int score;
+    private int speed;
 
     public Ball() {
         setImage(Constants.BALLS_PATH[random.nextInt(0, Constants.BALLS_PATH.length)]);
@@ -19,6 +20,7 @@ public class Ball extends Entity {
         this.shouldGoDown = true;
         this.entityRectangle.setBounds(this.x, this.y, this.width, this.height);
         score = 0;
+        this.speed = Constants.Y_SPEED;
     }
 
     private void setXPosition() {
@@ -134,7 +136,7 @@ public class Ball extends Entity {
 
     private void moveUp() {
         if (this.y > 0) {
-            this.y -= Constants.Y_SPEED;
+            this.y -= this.speed;
         } else {
             this.shouldGoDown = true;
         }
@@ -142,7 +144,7 @@ public class Ball extends Entity {
 
     private void moveDown() {
         if (this.y < Constants.GRASS_HEIGHT) {
-            this.y += Constants.Y_SPEED;
+            this.y += this.speed;
         } else {
             this.shouldGoDown = false;
         }
@@ -182,5 +184,6 @@ public class Ball extends Entity {
         this.shouldGoDown = true;
         this.entityRectangle.setBounds(this.x, this.y, this.width, this.height);
         score = 0;
+        this.speed = Constants.Y_SPEED;
     }
 }
