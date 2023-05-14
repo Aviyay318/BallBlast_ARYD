@@ -94,7 +94,6 @@ public class Sound {
         }
     }
     public void playPopSound(){
-        System.out.println("pop");
         this.popClip.setMicrosecondPosition(0);
         this.popClip.start();
     }

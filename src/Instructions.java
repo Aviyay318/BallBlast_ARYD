@@ -22,6 +22,8 @@ public class Instructions extends JPanel {
     private boolean isStart;
     private int index;
 
+    private Sound music;
+
     public Instructions(int x,int y,int width,int height,int highScore){
         this.setSize(width,height);
         this.setLocation(x,y);
@@ -38,10 +40,17 @@ public class Instructions extends JPanel {
         addHighScore(highScore);
         createButtonStart();
 
+        this.music = new Sound();
+        addMusic();
         this.setVisible(true);
+
 
     }
 
+    public void addMusic(){
+        this.music.loadMusicClip(Sound.INTRO_NUM);
+        this.music.playMusic();
+    }
     public boolean isStart() {
         return this.isStart;
     }
@@ -145,7 +154,9 @@ public class Instructions extends JPanel {
             this.index=0;
         }
     }
-
+    public Sound getMusic(){
+        return this.music;
+    }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
