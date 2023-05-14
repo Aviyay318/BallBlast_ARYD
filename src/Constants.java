@@ -10,7 +10,7 @@ public class Constants {
     public static final String RETRY_ICON_PATH = "res/retry.png";
 
 
-    public static final String SHOT_PATH = "res/clipart4628922.png";
+    public static final String SHOT_PATH = "res/shot.png";
     public static final int SHOT_WIDTH = 30;
     public static final int SHOT_HEIGHT = 30;
     public static final int BALLS_AND_SHOOTS_LIST_SIZE = 6;

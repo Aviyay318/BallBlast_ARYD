@@ -18,6 +18,12 @@ public class GamePanel extends JPanel {
     private KeyBoard keyBoard;
     private static JButton retry;
     private JButton pause;
+    private JButton mute;
+    private JButton unmute;
+    private ImageIcon muteIcon;
+    private ImageIcon unmuteIcon;
+    private Sound sounds;
+    private boolean canStartPlayingMusic;
 
     private Icon retryIcon;
 
@@ -35,11 +41,49 @@ public class GamePanel extends JPanel {
         this.ballIndex = 0;
         this.isOver = false;
         createScore();
-       this.instructions=instructions;
+        createButtonRetry();
+        this.instructions = instructions;
         this.add(this.instructions);
-        this.gameOver=false;
-        retry = new JButton("Retry");
+        this.gameOver = false;
+        this.sounds = new Sound();
+        this.canStartPlayingMusic = false;
+        createMuteButton();
+    }
 
+    private void createUnmuteButton() {
+        this.unmute = new JButton();
+        this.unmuteIcon = new ImageIcon("res/mute.png");
+        this.unmute.setBounds(10, 10, 50, 50);
+        this.unmute.setOpaque(false);
+        this.unmute.setBorderPainted(false);
+        this.unmute.setContentAreaFilled(false);
+        this.unmute.setIcon(this.unmuteIcon);
+        this.unmute.addActionListener(e -> {
+            this.instructions.getMusic().loadMusicClip(Sound.DURING_NUM);
+            this.instructions.getMusic().playMusic();
+            this.unmute.setVisible(false);
+            createMuteButton();
+        });
+        this.add(this.unmute);
+        this.setVisible(true);
+
+    }
+
+    private void createMuteButton() {
+        this.mute = new JButton();
+        this.muteIcon = new ImageIcon("res/unmute.png");
+        this.mute.setBounds(10, 10, 50, 50);
+        this.mute.setOpaque(false);
+        this.mute.setBorderPainted(false);
+        this.mute.setContentAreaFilled(false);
+        this.mute.setIcon(this.muteIcon);
+        this.mute.addActionListener(e -> {
+            this.instructions.getMusic().stopMusic();
+            this.mute.setVisible(false);
+            createUnmuteButton();
+        });
+        this.add(this.mute);
+        this.setVisible(true);
     }
 
     private void createScore() {
@@ -60,8 +104,8 @@ public class GamePanel extends JPanel {
 
     private void createBackGround() {
         try {
-            this.backGround  = ImageIO.read(new File("res/backGround2.png"));
-        }catch (IOException e){
+            this.backGround = ImageIO.read(new File("res/background.png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -99,18 +143,16 @@ public class GamePanel extends JPanel {
 
     private void Retry() {
         retry.setVisible(true);
-        retry.addActionListener((e ->{
-         retry.setVisible(false);
+        retry.addActionListener((e -> {
+            retry.setVisible(false);
             restart();
 
         }));
-
-
     }
 
     private void createButtonPause() {
-        this.retryIcon = new ImageIcon("res/newimag.png");
-        this.pause.setBounds(30,30,200,200);
+        this.retryIcon = new ImageIcon("res/retry.png");
+        this.pause.setBounds(30, 30, 200, 200);
         this.pause.setIcon(this.retryIcon);
         this.pause.setOpaque(false);
         this.pause.setContentAreaFilled(false);
@@ -124,7 +166,6 @@ public class GamePanel extends JPanel {
 
         }));
     }
-
     private void updateBallIndex() {
         if (this.ballIndex < this.balls.size() - 1) {
             if (this.balls.get(this.ballIndex).getHealth() == 0) {
@@ -140,13 +181,9 @@ public class GamePanel extends JPanel {
         }
 
     }
-
-
     private void updateScore() {
         this.showScore.setText(Integer.toString(Ball.getScore()));
     }
-
-
     private void checkCollision() {
         if (this.balls.get(this.ballIndex).entityRectangle != null) {
             if (this.cannon.getShot().entityRectangle != null) {
@@ -164,7 +201,6 @@ public class GamePanel extends JPanel {
 
 
     }
-
     public void restart() {
         this.ballIndex = 0;
         this.balls.get(this.ballIndex).restart();
@@ -176,18 +212,13 @@ public class GamePanel extends JPanel {
         this.addKeyListener(this.keyBoard);
         this.sounds.playMusic();
     }
-
     public boolean isGameOver() {
-        return gameOver;
+        return this.gameOver;
     }
-
-
     private void hit() {
         this.cannon.getShot().setShotVisible(false);
         this.balls.get(this.ballIndex).destroy();
     }
-
-
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
@@ -200,6 +231,5 @@ public class GamePanel extends JPanel {
 
 
     }
-
 
 }

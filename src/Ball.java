@@ -6,15 +6,19 @@ public class Ball extends Entity{
     public static final int RIGHT_POSITION = 800;
     public static final int LEVEL_ONE_BALL = 1;
     public static final int LEVEL_TWO_BALL = 2;
+    public static final int QUESTION_BALL = 3;
     public static final int LEVEL_ONE_BALL_SIZE = 100;
     public static final int LEVEL_TWO_BALL_SIZE = 150;
+    public static final int QUESTION_BALL_STARTING_SIZE = 100;
+    public static final int QUESTION_BALL_HEALTH = 5;
     public static final Font LEVEL_ONE_BALL_FONT = new Font("arial",Font.BOLD, 70);
+    public static final Font QUESTION_BALL_FONT = new Font("arial",Font.BOLD, 70);
     public static final Font LEVEL_TWO_BALL_FONT = new Font("arial",Font.BOLD, 90);
-    public static final int SPEED = 3;
+    public static final int Y_SPEED = 3;
+    public static final int X_SPEED = 1;
 
     private int health;
     private int level;
-    private int speed;
     private Font font;
     private int stringX;
     private int stringY;
@@ -22,7 +26,6 @@ public class Ball extends Entity{
     private boolean shouldGoRight;
     private static int score;
     public Ball() {
-        this.speed = SPEED;
         setImage(Constants.BALLS_PATH[random.nextInt(0, Constants.BALLS_PATH.length)]);
         createBall();
         this.shouldGoDown = true;
@@ -30,13 +33,16 @@ public class Ball extends Entity{
         score = 0;
     }
     private void setLevel(){
-        int randomLevel = random.nextInt(1,3);
+        int randomLevel = random.nextInt(1,4);
         switch (randomLevel){
             case 1-> {
                 this.level = LEVEL_ONE_BALL;
             }
             case 2-> {
                 this.level = LEVEL_TWO_BALL;
+            }
+            case 3 -> {
+                this.level = QUESTION_BALL;
             }
         }
     }
@@ -69,8 +75,15 @@ public class Ball extends Entity{
                 this.health = random.nextInt(10,20);
                 this.font = LEVEL_TWO_BALL_FONT;
             }
+            case QUESTION_BALL ->{
+                this.width = QUESTION_BALL_STARTING_SIZE;
+                this.height = QUESTION_BALL_STARTING_SIZE;
+                this.health = QUESTION_BALL_HEALTH;
+                this.font = QUESTION_BALL_FONT;
+            }
         }
     }
+   // public void
     public void stringPosition(){
         switch(this.level){
             case LEVEL_ONE_BALL -> {
@@ -84,6 +97,10 @@ public class Ball extends Entity{
                 else{
                     this.stringX = this.x+50;
                 }
+                this.stringY = this.y+105;
+            }
+            case QUESTION_BALL -> {
+                this.stringX = this.x+50;
                 this.stringY = this.y+105;
             }
         }
@@ -124,28 +141,28 @@ public class Ball extends Entity{
     }
     private void moveLeft() {
         if (this.x<=Constants.RIGHT_POSITION&&this.x>0){
-            this.x-=this.speed-2;
+            this.x-=X_SPEED;
         }else {
             this.shouldGoRight = true;
         }
     }
     private void moveRight() {
         if (this.x>=0&&this.x<Constants.RIGHT_POSITION){
-            this.x+=this.speed-2;
+            this.x+=X_SPEED;
         }else {
             this.shouldGoRight = false;
         }
     }
     private void moveUp() {
         if (this.y>0){
-            this.y-=this.speed;
+            this.y-=Y_SPEED;
         }else {
             this.shouldGoDown = true;
         }
     }
     private void moveDown() {
         if (this.y<Constants.GRASS_HEIGHT){
-            this.y+=this.speed;
+            this.y+=Y_SPEED;
         }else {
             this.shouldGoDown= false;
         }
