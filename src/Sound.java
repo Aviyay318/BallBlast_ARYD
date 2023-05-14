@@ -24,7 +24,12 @@ public class Sound {
         }
 
         loadHitSound();
-        loadGameOverSound();
+        try {
+            loadGameOverSound();
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+
         loadPopSound();
     }
 
