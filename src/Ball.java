@@ -164,8 +164,12 @@ public class Ball extends Entity {
         return score;
     }
 
-    public int getHealth() {
-        return health;
+    public boolean isAlive(){
+        boolean isAlive = true;
+        if (this.health==0){
+            isAlive = false;
+        }
+        return isAlive;
     }
 
     public void setBall() {

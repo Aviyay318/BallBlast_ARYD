@@ -27,7 +27,7 @@ public class Cannon extends Entity{
     } private void updateShotIndex() {
         if (this.isMoving){
             if (this.shotIndex <this.shots.size()){
-                if (this.shots.get(this.shotIndex).y==0){
+                if (!this.shots.get(this.shotIndex).isEndShot()){
                 }
             }else if(this.shotIndex==this.shots.size()) {
                 this.shotIndex = 0;

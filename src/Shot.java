@@ -14,6 +14,13 @@ public  class Shot extends Entity{
         startShoot(isM);
         setRectangle();
     }
+    public boolean isEndShot(){
+        boolean isEndShot = false;
+        if (this.y==0){
+            isEndShot=true;
+        }
+        return isEndShot;
+    }
 
     private void updateXPosition(int x) {
         if (this.y>=Constants.CANNON_Y_POSITION){

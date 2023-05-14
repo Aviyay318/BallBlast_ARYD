@@ -48,6 +48,9 @@ public class GamePanel extends JPanel {
         this.sounds = new Sound();
         this.canStartPlayingMusic = false;
         createMuteButton();
+        this.restartTimes = 0;
+
+
     }
 
     private void createUnmuteButton() {
@@ -121,6 +124,7 @@ public class GamePanel extends JPanel {
             checkCollision();
             updateScore();
             this.showScore.setVisible(true);
+            this.restartTimes=0;
             retry.setVisible(false);
         } else if (this.gameOver) {
             Retry();
@@ -149,25 +153,24 @@ public class GamePanel extends JPanel {
         }));
     }
 
-    private void createButtonPause() {
-        this.retryIcon = new ImageIcon("res/retry.png");
-        this.pause.setBounds(30, 30, 200, 200);
-        this.pause.setIcon(this.retryIcon);
-        this.pause.setOpaque(false);
-        this.pause.setContentAreaFilled(false);
-        this.pause.setBorderPainted(false);
-        this.add(this.pause);
-        this.pause.setVisible(true);
-        this.pause.addActionListener((e -> {
-            this.gameOver = true;
-            System.out.println("?/?00" + this.gameOver);
-            restart();
-
-        }));
-    }
+//    private void createButtonPause() {
+//        this.retryIcon = new ImageIcon("res/retry.png");
+//        this.pause.setBounds(30, 30, 200, 200);
+//        this.pause.setIcon(this.retryIcon);
+//        this.pause.setOpaque(false);
+//        this.pause.setContentAreaFilled(false);
+//        this.pause.setBorderPainted(false);
+//        this.add(this.pause);
+//        this.pause.setVisible(true);
+//        this.pause.addActionListener((e -> {
+//            this.gameOver = true;
+//            System.out.println("?/?00" + this.gameOver);
+//
+//        }));
+//    }
     private void updateBallIndex() {
         if (this.ballIndex < this.balls.size() - 1) {
-            if (this.balls.get(this.ballIndex).getHealth() == 0) {
+            if (!this.balls.get(this.ballIndex).isAlive()) {
                 this.sounds.loadPopSound();
                 this.sounds.playPopSound();
                 this.ballIndex++;
@@ -199,9 +202,9 @@ public class GamePanel extends JPanel {
     }
 
     public void restart() {
+        this.gameOver = false;
         this.ballIndex = 0;
         this.balls.get(this.ballIndex).restart();
-        this.gameOver = false;
         this.cannon.restart();
         this.setFocusable(true);
         this.requestFocus(true);
