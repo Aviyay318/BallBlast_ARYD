@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
         this.add(this.instructions);
         this.gameOver = false;
         this.sounds = new Sound();
-        this.sounds.loadHitSound();
+
         this.canStartPlayingMusic = false;
         createMuteButton();
         this.restartTimes = 0;
@@ -197,6 +197,8 @@ public class GamePanel extends JPanel {
             if (this.cannon.entityRectangle != null) {
                 if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle, this.cannon.entityRectangle)) {
                     this.gameOver = true;
+                    this.instructions.getMusic().stopMusic();
+                    this.sounds.playGameOverSound();
                 }
             }
         }
@@ -211,7 +213,7 @@ public class GamePanel extends JPanel {
         this.requestFocus(true);
         this.keyBoard = new KeyBoard(this);
         this.addKeyListener(this.keyBoard);
-        this.sounds.playMusic();
+        this.instructions.getMusic().playMusic();
         this.restartTimes++;
     }
     public boolean isGameOver() {

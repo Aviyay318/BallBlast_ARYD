@@ -29,7 +29,7 @@ public class TopPanel extends JPanel {
                 FileReader fileReader =  new FileReader(this.file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 try {
-                    score = Integer.parseInt(bufferedReader.readLine());
+                    this.score = Integer.parseInt(bufferedReader.readLine());
                 }catch (Exception e){
                    e.getStackTrace();
                 }
@@ -42,12 +42,12 @@ public class TopPanel extends JPanel {
     }
 
     public void writeScore(){
-
-        if (score<Ball.getScore()){
+        if (this.score<Ball.getScore()){
             try {
                 FileWriter fileWriter = new FileWriter(this.file);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write(Integer.toString(Ball.getScore()));
+                this.showScore.setText("High Score: " + Ball.getScore());
                 bufferedWriter.close();
                 fileWriter.close();
             }catch (IOException e){

@@ -22,6 +22,10 @@ public class Sound {
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         }
+
+        loadHitSound();
+        loadGameOverSound();
+        loadPopSound();
     }
 
     public void loadMusicClip(int i){
@@ -68,6 +72,7 @@ public class Sound {
         }
     }
     public void playHitSound(){
+        this.hitClip.setMicrosecondPosition(0);
         this.hitClip.start();
     }
 
