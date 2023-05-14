@@ -19,6 +19,7 @@ public class GamePanel extends JPanel {
     private static JButton retry;
     private JButton pause;
     private JButton mute;
+    private boolean isMuted;
     private JButton unmute;
     private ImageIcon muteIcon;
     private ImageIcon unmuteIcon;
@@ -46,7 +47,7 @@ public class GamePanel extends JPanel {
         this.add(this.instructions);
         this.gameOver = false;
         this.sounds = new Sound();
-
+        this.isMuted = false;
         this.canStartPlayingMusic = false;
         createMuteButton();
         this.restartTimes = 0;
@@ -67,6 +68,7 @@ public class GamePanel extends JPanel {
             this.instructions.getMusic().playMusic();
             this.unmute.setVisible(false);
             createMuteButton();
+            this.isMuted = false;
         });
         this.add(this.unmute);
         this.setVisible(true);
@@ -84,6 +86,7 @@ public class GamePanel extends JPanel {
             this.instructions.getMusic().stopMusic();
             this.mute.setVisible(false);
             createUnmuteButton();
+            this.isMuted = true;
         });
         this.add(this.mute);
         this.setVisible(true);
@@ -213,7 +216,9 @@ public class GamePanel extends JPanel {
         this.requestFocus(true);
         this.keyBoard = new KeyBoard(this);
         this.addKeyListener(this.keyBoard);
-        this.instructions.getMusic().playMusic();
+        if (!isMuted){
+            this.instructions.getMusic().playMusic();
+        }
         this.restartTimes++;
     }
     public boolean isGameOver() {
