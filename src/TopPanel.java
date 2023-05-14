@@ -13,7 +13,6 @@ public class TopPanel extends JPanel {
         this.file = new File(Constants.SCORE_PATH);
         readScore();
         this.showScore = new JLabel("High Score: "+Integer.toString(this.score),JLabel.CENTER);
-        System.out.println(this.score);
         this.showScore.setFont(new Font("arial",Font.BOLD,30));
         this.showScore.setForeground(Color.white);
         this.showScore.setBounds(15,0,200,100);
