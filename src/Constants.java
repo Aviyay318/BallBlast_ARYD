@@ -13,8 +13,8 @@ public class Constants {
     public static final String RETRY_ICON_PATH = "res/retry.png";
 
 
-    public static final int Y_POSITION_MIN =40;
-    public static final int Y_POSITION_MAX =100;
+    public static final int Y_POSITION_MIN =20;
+    public static final int Y_POSITION_MAX =50;
     public static final int LEFT_POSITION = 0;
     public static final int LEFT_P=1;
     public static final int RIGHT_P=2;
