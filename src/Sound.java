@@ -75,7 +75,6 @@ public class Sound {
             if(!this.popClip.isOpen()){
                 this.emptyPopStream = AudioSystem.getAudioInputStream(new File(Constants.POP));
                 this.popClip.open(this.emptyPopStream);
-                System.out.println("pop has loaded");
             }
         }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
@@ -109,7 +108,7 @@ public class Sound {
 
     public void loadGameOverSound(){
         try {
-            this.gameOverStream = AudioSystem.getAudioInputStream(new File(POWER_UP));
+            this.gameOverStream = AudioSystem.getAudioInputStream(new File(Constants.POWER_UP));
             this.gameOverClip.open(this.gameOverStream);
         }catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);

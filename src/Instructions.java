@@ -48,7 +48,7 @@ public class Instructions extends JPanel {
     }
 
     public void addMusic(){
-        this.music.loadMusicClip(Sound.INTRO_NUM);
+        this.music.loadMusicClip(Constants.INTRO_NUM);
         this.music.playMusic();
     }
     public boolean isStart() {

@@ -36,7 +36,7 @@ public class Ball extends Entity {
     }
 
     private void setYPosition() {
-        this.y = random.nextInt(40,100);
+        this.y = random.nextInt(Constants.Y_POSITION_MIN, Constants.Y_POSITION_MAX);
     }
 
     protected void setRectangle() {
@@ -57,39 +57,29 @@ public class Ball extends Entity {
                 this.health = random.nextInt(10, 20);
                 this.font = Constants.LEVEL_TWO_BALL_FONT;
             }
-            case QUESTION_BALL ->{
-                this.width = QUESTION_BALL_STARTING_SIZE;
-                this.height = QUESTION_BALL_STARTING_SIZE;
-                this.health = QUESTION_BALL_HEALTH;
-                this.font = QUESTION_BALL_FONT;
-            }
         }
     }
-   // public void
-    public void stringPosition(){
-        switch(this.level){
-            case LEVEL_ONE_BALL -> {
-                this.stringX = this.x+30;
-                this.stringY = this.y+70;
+
+    // public void
+    public void stringPosition() {
+        switch (this.level) {
+            case Constants.LEVEL_ONE_BALL -> {
+                this.stringX = this.x + 30;
+                this.stringY = this.y + 70;
             }
-            case LEVEL_TWO_BALL -> {
-                if(this.health>=10){
-                    this.stringX = this.x+25;
-                }
-                else{
-                    this.stringX = this.x+50;
+            case Constants.LEVEL_TWO_BALL -> {
+                if (this.health >= 10) {
+                    this.stringX = this.x + 25;
+                } else {
+                    this.stringX = this.x + 50;
                 }
                 this.stringY = this.y + 105;
-            }
-            case QUESTION_BALL -> {
-                this.stringX = this.x+50;
-                this.stringY = this.y+105;
             }
         }
     }
 
     private void createBall() {
-        setLevel();
+        this.level = random.nextInt(1, 3);
         setXPosition();
         setYPosition();
         setProperties();
@@ -105,8 +95,8 @@ public class Ball extends Entity {
         super.draw(graphics2D);
         graphics2D.setFont(this.font);
         graphics2D.setColor(Color.white);
-        if (this.level==QUESTION_BALL){
-            graphics2D.drawString("?",this.stringX,this.stringY);
+        if (this.level == Constants.QUESTION_BALL) {
+            graphics2D.drawString("?", this.stringX, this.stringY);
 
         } else {
             graphics2D.drawString(Integer.toString(this.health), this.stringX, this.stringY);
@@ -127,34 +117,34 @@ public class Ball extends Entity {
     }
 
     private void moveLeft() {
-        if (this.x<=Constants.RIGHT_POSITION&&this.x>0){
-            this.x-=X_SPEED;
-        }else {
+        if (this.x <= Constants.RIGHT_POSITION && this.x > 0) {
+            this.x -= Constants.X_SPEED;
+        } else {
             this.shouldGoRight = true;
         }
     }
 
     private void moveRight() {
-        if (this.x>=0&&this.x<Constants.RIGHT_POSITION){
-            this.x+=X_SPEED;
-        }else {
+        if (this.x >= 0 && this.x < Constants.RIGHT_POSITION) {
+            this.x += Constants.X_SPEED;
+        } else {
             this.shouldGoRight = false;
         }
     }
 
     private void moveUp() {
-        if (this.y>0){
-            this.y-=Y_SPEED;
-        }else {
+        if (this.y > 0) {
+            this.y -= Constants.Y_SPEED;
+        } else {
             this.shouldGoDown = true;
         }
     }
 
     private void moveDown() {
-        if (this.y<Constants.GRASS_HEIGHT){
-            this.y+=Y_SPEED;
-        }else {
-            this.shouldGoDown= false;
+        if (this.y < Constants.GRASS_HEIGHT) {
+            this.y += Constants.Y_SPEED;
+        } else {
+            this.shouldGoDown = false;
         }
     }
 

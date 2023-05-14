@@ -59,7 +59,7 @@ public class GamePanel extends JPanel {
         this.unmute.setContentAreaFilled(false);
         this.unmute.setIcon(this.unmuteIcon);
         this.unmute.addActionListener(e -> {
-            this.instructions.getMusic().loadMusicClip(Sound.DURING_NUM);
+            this.instructions.getMusic().loadMusicClip(Constants.DURING_NUM);
             this.instructions.getMusic().playMusic();
             this.unmute.setVisible(false);
             createMuteButton();
@@ -146,7 +146,6 @@ public class GamePanel extends JPanel {
         retry.addActionListener((e -> {
             retry.setVisible(false);
             restart();
-
         }));
     }
 

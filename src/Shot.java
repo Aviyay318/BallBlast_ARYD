@@ -35,6 +35,7 @@ public  class Shot extends Entity{
 
     private void startShoot(boolean isM){
         if (isM||this.y<Constants.CANNON_Y_POSITION){
+            this.sounds.playShootingSound();
             if (this.y>=0){
                 setShotVisible(true);
                 this.y-=this.speedShot;

@@ -12,6 +12,7 @@ public abstract class Entity {
     protected static int speed;
     protected BufferedImage image;
     protected Rectangle entityRectangle;
+    protected Sound sounds;
     public Entity(){ this.entityRectangle = new Rectangle();}
     public Entity(int x,int y,int width,int height){
         this.x = x;
@@ -20,6 +21,7 @@ public abstract class Entity {
         this.height = height;
         speed = 2;
         this.entityRectangle = new Rectangle(this.x,this.y,this.width,this.height);
+        this.sounds = new Sound();
     }
 
 
