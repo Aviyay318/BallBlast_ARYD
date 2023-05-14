@@ -59,9 +59,6 @@ public class Sound {
     public void stopMusic(){
         this.musicClip.stop();
     }
-    public void closeMusic(){
-        this.musicClip.close();
-    }
 
     public void loadHitSound(){
         try {
@@ -90,8 +87,6 @@ public class Sound {
         this.popClip.setMicrosecondPosition(0);
         this.popClip.start();
     }
-
-
     public void loadGameOverSound(){
         try {
             this.gameOverStream = AudioSystem.getAudioInputStream(new File(Constants.GAME_OVER));
@@ -104,10 +99,4 @@ public class Sound {
         this.gameOverClip.setMicrosecondPosition(0);
         this.gameOverClip.start();
     }
-    public void stopGameOverSound(){
-        this.gameOverClip.stop();
-        this.gameOverClip.close();
-    }
-
-
 }
