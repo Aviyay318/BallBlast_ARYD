@@ -22,6 +22,7 @@ public class Instructions extends JPanel {
     private boolean isStart;
     private int index;
 
+    private boolean hasClosed;
     private Sound music;
 
     public Instructions(int x,int y,int width,int height,int highScore){
@@ -39,7 +40,7 @@ public class Instructions extends JPanel {
         addMoveInstructions();
         addHighScore(highScore);
         createButtonStart();
-
+        this.hasClosed = false;
         this.music = new Sound();
         addMusic();
         this.setVisible(true);
@@ -93,7 +94,7 @@ public class Instructions extends JPanel {
     }
     public void addMoveInstructions(){
         this.moveInstructions = new JLabel("To move and shoot PRESS:",JLabel.LEFT);
-        this.moveInstructions.setBounds(this.blast.getX()-40,this.blast.getY()+160,400,100);
+        this.moveInstructions.setBounds(this.blast.getX()-40,this.blast.getY()+180,400,100);
         this.moveInstructions.setFont(new Font("arial",Font.BOLD,30));
         this.add(this.moveInstructions, BorderLayout.CENTER);
         this.moveInstructions.setVisible(true);
@@ -126,11 +127,12 @@ public class Instructions extends JPanel {
             this.music.stopMusic();
             this.isStart = true;
             this.setVisible(false);
-            this.music.loadMusicClip(Constants.DURING_NUM);
-            this.music.playMusic();
+            this.hasClosed = true;
         }));
     }
-
+    public boolean getHasClosed(){
+        return this.hasClosed;
+    }
 
     public void setStart(boolean start) {
         isStart = start;

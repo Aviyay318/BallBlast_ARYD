@@ -59,7 +59,6 @@ public class Constants {
     public static final String DURING = "res/sounds/music/ballBlastDuringGame.wav";
     public static final String SHOOTING = "res/sounds/shooting.wav";
     public static final String POP = "res/sounds/pop.wav";
-    public static final String POWER_UP = "res/sounds/powerup.wav";
     public static final String GAME_OVER = "res/sounds/gameOver.wav";
     public static final int INTRO_NUM = 1;
     public static final int TRANSITION_NUM = 2;

@@ -24,8 +24,8 @@ public class GamePanel extends JPanel {
     private ImageIcon unmuteIcon;
     private Sound sounds;
     private boolean canStartPlayingMusic;
-
     private Icon retryIcon;
+    private int restartTimes;
 
     public GamePanel(Instructions instructions) {
         createBackGround();
@@ -59,14 +59,13 @@ public class GamePanel extends JPanel {
         this.unmute.setContentAreaFilled(false);
         this.unmute.setIcon(this.unmuteIcon);
         this.unmute.addActionListener(e -> {
-            this.instructions.getMusic().loadMusicClip(Constants.DURING_NUM);
+            this.instructions.getMusic().loadMusicClip(this.instructions.getMusic().lastPlayedMusic());
             this.instructions.getMusic().playMusic();
             this.unmute.setVisible(false);
             createMuteButton();
         });
         this.add(this.unmute);
         this.setVisible(true);
-
     }
 
     private void createMuteButton() {
@@ -100,7 +99,6 @@ public class GamePanel extends JPanel {
             this.balls.add(new Ball());
         }
     }
-
 
     private void createBackGround() {
         try {
@@ -145,7 +143,9 @@ public class GamePanel extends JPanel {
         retry.setVisible(true);
         retry.addActionListener((e -> {
             retry.setVisible(false);
-            restart();
+            if(this.restartTimes<1){
+                restart();
+            }
         }));
     }
 
@@ -188,7 +188,6 @@ public class GamePanel extends JPanel {
             if (this.cannon.getShot().entityRectangle != null) {
                 if (Utils.collision(this.balls.get(this.ballIndex).entityRectangle, this.cannon.getShot().entityRectangle)) {
                     hit();
-
                 }
             }
             if (this.cannon.entityRectangle != null) {
@@ -197,9 +196,8 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-
-
     }
+
     public void restart() {
         this.ballIndex = 0;
         this.balls.get(this.ballIndex).restart();
@@ -210,15 +208,18 @@ public class GamePanel extends JPanel {
         this.keyBoard = new KeyBoard(this);
         this.addKeyListener(this.keyBoard);
         this.sounds.playMusic();
+        this.restartTimes++;
     }
     public boolean isGameOver() {
         return this.gameOver;
     }
     private void hit() {
+        this.sounds.playHitSound();
         this.cannon.getShot().setShotVisible(false);
         this.balls.get(this.ballIndex).destroy();
     }
     public void paintComponent(Graphics graphics) {
+        //long now = System.nanoTime();
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.drawImage(this.backGround, 0, 0, Constants.WIDTH, Constants.HEIGHT, null);
@@ -227,6 +228,8 @@ public class GamePanel extends JPanel {
             this.cannon.draw(graphics2D);
             this.balls.get(this.ballIndex).draw(graphics2D);
         }
+        //long after = System.nanoTime();
+        //System.out.println(after-now);
 
 
     }

@@ -7,7 +7,6 @@ public  class Shot extends Entity{
         setImage(Constants.SHOT_PATH);
         this.isShooting = false;
         this.speedShot=15;
-
     }
 
     public void update(boolean isM,int x){
@@ -35,7 +34,6 @@ public  class Shot extends Entity{
 
     private void startShoot(boolean isM){
         if (isM||this.y<Constants.CANNON_Y_POSITION){
-            this.sounds.playShootingSound();
             if (this.y>=0){
                 setShotVisible(true);
                 this.y-=this.speedShot;
